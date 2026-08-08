@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GBA Player Online</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -47,16 +49,11 @@
             width: 100%;
             height: 100%;
         }
-        @media (max-width: 840px) {
-            #game-container {
-                height: 400px;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <h1>MEU JOGO GBA</h1>
+    <h1>CASTLEVANIA GBA</h1>
 
     <div class="game-wrapper">
         <div id="game-container">
@@ -65,21 +62,19 @@
     </div>
 
     <script type="text/javascript">
-        EJS_player = '#game'; 
-        EJS_core = 'gba'; 
-        EJS_gameName = 'Castlevania'; 
-        EJS_color = '#800000'; 
-        EJS_startOnLoaded = false; 
+        EJS_player = '#game';
+        EJS_core = 'gba';
+        EJS_gameName = 'Castlevania';
+        EJS_color = '#800000';
+        EJS_startOnLoaded = true; // Inicia o carregamento automaticamente
         
-        // Servidor CDN oficial e estável
-        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
+        EJS_pathtodata = 'https://emulatorjs.org';
         
-        // Aponta para o arquivo simplificado 'game.gba'
-        EJS_gameUrl = 'game.gba'; 
-        
-        EJS_cacheUrl = true;
+        // Atualizado para o nome exato do seu arquivo
+        EJS_gameUrl = 'Castlevania.gba'; 
     </script>
-    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+    
+    <script src="https://emulatorjs.orgloader.js"></script>
 
 </body>
 </html>

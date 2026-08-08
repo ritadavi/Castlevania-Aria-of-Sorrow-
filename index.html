@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castlevania GBA</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Links das fontes corrigidos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -67,31 +70,30 @@
     </div>
 
     <script type="text/javascript">
-        // Configurações obrigatórias do EmulatorJS
         EJS_player = '#game';
         EJS_core = 'gba';
         EJS_gameName = 'Castlevania';
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
         
-        // CORREÇÃO 1: Uso da nova CDN oficial recomendada pela documentação
-        EJS_pathtodata = 'https://emulatorjs.org';
+        // Caminho oficial correto para os arquivos do emulador
+        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
         
-        // CORREÇÃO 2: Arquivo do jogo
+        // Nome exato do arquivo ROM (deve bater com o arquivo na mesma pasta)
         EJS_gameUrl = 'castlevania.gba'; 
     </script>
     
-    <!-- CORREÇÃO 3: Script Loader puxado diretamente da infraestrutura correta -->
-    <script src="https://emulatorjs.orgloader.js"></script>
+    <!-- Script Loader corrigido com CDN estável -->
+    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 
     <script>
-        // Teste de segurança extra: Verifica se a ROM local está acessível
+        // Verificação do arquivo ROM no console
         fetch(EJS_gameUrl, { method: 'HEAD' })
             .then(res => {
-                if (!res.ok) console.warn("Aviso: Arquivo 'castlevania.gba' não foi encontrado na mesma pasta do HTML.");
+                if (!res.ok) console.warn("Aviso: O arquivo 'castlevania.gba' não foi encontrado na mesma pasta do arquivo HTML.");
             })
             .catch(() => {
-                console.error("Erro de CORS: Se estiver abrindo o HTML clicando duas vezes nele, o navegador bloqueará o jogo por segurança.");
+                console.error("Erro de CORS: Para rodar localmente sem servidor HTTP, o navegador bloqueará a leitura do arquivo.");
             });
     </script>
 

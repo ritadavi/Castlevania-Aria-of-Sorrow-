@@ -75,15 +75,18 @@
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
         
-        // Uso da CDN jsDelivr para evitar bloqueios de rede
-        EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
+        // Versão estável do servidor oficial (evita a falha do GamepadHandler)
+        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
         
         // Nome exato da ROM
         EJS_gameUrl = 'castlevania.gba'; 
+        
+        // Força idioma padrão para impedir quebras por traduções ausentes
+        EJS_language = 'en-US';
     </script>
     
-    <!-- Loader via jsDelivr -->
-    <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js"></script>
+    <!-- Loader da versão estável -->
+    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 
 </body>
 </html>

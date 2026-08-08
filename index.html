@@ -63,10 +63,10 @@
             height: 100%;
         }
 
-        #debug-log {
+        #status-log {
             margin-top: 15px;
             font-size: 10px;
-            color: #ff6666;
+            color: #ffaa00;
             text-align: center;
             max-width: 800px;
             line-height: 1.6;
@@ -98,47 +98,48 @@
         </div>
     </div>
 
-    <div id="debug-log">Carregando verificação de arquivos...</div>
+    <div id="status-log">Carregando verificador de ROM...</div>
 
     <script type="text/javascript">
-        const romPath = 'castlevania.gba';
-        const log = document.getElementById('debug-log');
+        const romName = 'castlevania.gba';
+        const statusElement = document.getElementById('status-log');
 
-        // Pré-validação do arquivo da ROM
-        fetch(romPath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Arquivo não encontrado no servidor (Status: ${response.status})`);
-                }
-                return response.blob();
+        // Teste de integridade do arquivo antes de ligar o emulador
+        fetch(romName)
+            .then(res => {
+                if (!res.ok) throw new Error("Arquivo não encontrado no servidor.");
+                return res.blob();
             })
             .then(blob => {
                 const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
-                if (blob.size < 100000) {
-                    log.innerText = `ERRO: O arquivo 'castlevania.gba' parece corrompido ou incompleto (Tamanho: ${sizeMB} MB). Baixe a ROM novamente.`;
+                
+                if (blob.size === 0) {
+                    statusElement.style.color = '#ff3333';
+                    statusElement.innerText = "ERRO: O arquivo 'castlevania.gba' no servidor está com 0 MB (vazio). Faça o re-upload da ROM.";
                 } else {
-                    log.style.color = '#66ff66';
-                    log.innerText = `ROM carregada com sucesso (${sizeMB} MB). Inicializando emulador...`;
-                    initEmulator();
+                    statusElement.style.color = '#66ff66';
+                    statusElement.innerText = `ROM carregada (${sizeMB} MB). Iniciando jogo...`;
+                    startEmulator();
                 }
             })
             .catch(err => {
-                log.innerText = `ERRO CRÍTICO: ${err.message}. Verifique se o arquivo 'castlevania.gba' está na mesma pasta do HTML e com o nome em minúsculas.`;
+                statusElement.style.color = '#ff3333';
+                statusElement.innerText = "ERRO: 'castlevania.gba' não foi encontrado na raiz do site ou você está abrindo o arquivo direto no PC sem servidor HTTP.";
             });
 
-        function initEmulator() {
+        function startEmulator() {
             EJS_player = '#game';
             EJS_core = 'gba';
             EJS_gameName = 'Castlevania';
             EJS_color = '#ff3333';
             EJS_startOnLoaded = true;
             EJS_pathtodata = 'https://unpkg.com/emulatorjs@4.0.0/data/';
-            EJS_gameUrl = romPath;
+            EJS_gameUrl = romName;
             EJS_language = 'en-US';
 
-            const loader = document.createElement('script');
-            loader.src = 'https://unpkg.com/emulatorjs@4.0.0/data/loader.js';
-            document.body.appendChild(loader);
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/emulatorjs@4.0.0/data/loader.js';
+            document.body.appendChild(script);
         }
     </script>
 

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castlevania GBA</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -41,7 +41,6 @@
         }
         #game-container {
             width: 100%;
-            /* Mantém a proporção clássica de aspecto de tela cheia do emulador */
             aspect-ratio: 4 / 3; 
             background-color: #000;
             position: relative;
@@ -67,21 +66,34 @@
         </div>
     </div>
 
-    <!-- Configurações do EmulatorJS devem vir ANTES do script carregador -->
     <script type="text/javascript">
+        // Configurações obrigatórias do EmulatorJS
         EJS_player = '#game';
         EJS_core = 'gba';
         EJS_gameName = 'Castlevania';
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
         
-        // Caminho dos arquivos de dados e do jogo
-        EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
-        EJS_gameUrl = 'castlevania.gba'; // Certifique-se de que este arquivo está na mesma pasta do HTML
+        // CORREÇÃO 1: Uso da nova CDN oficial recomendada pela documentação
+        EJS_pathtodata = 'https://emulatorjs.org';
+        
+        // CORREÇÃO 2: Arquivo do jogo
+        EJS_gameUrl = 'castlevania.gba'; 
     </script>
     
-    <!-- Script de inicialização oficial -->
-    <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js"></script>
+    <!-- CORREÇÃO 3: Script Loader puxado diretamente da infraestrutura correta -->
+    <script src="https://emulatorjs.orgloader.js"></script>
+
+    <script>
+        // Teste de segurança extra: Verifica se a ROM local está acessível
+        fetch(EJS_gameUrl, { method: 'HEAD' })
+            .then(res => {
+                if (!res.ok) console.warn("Aviso: Arquivo 'castlevania.gba' não foi encontrado na mesma pasta do HTML.");
+            })
+            .catch(() => {
+                console.error("Erro de CORS: Se estiver abrindo o HTML clicando duas vezes nele, o navegador bloqueará o jogo por segurança.");
+            });
+    </script>
 
 </body>
 </html>

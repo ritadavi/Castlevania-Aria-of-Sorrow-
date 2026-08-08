@@ -67,10 +67,9 @@
             height: 100%;
         }
 
-        /* Botão estilizado no tema do jogo */
         .play-btn {
             position: absolute;
-            z-index: 10;
+            z-index: 99;
             padding: 20px 40px;
             font-family: 'Press Start 2P', monospace;
             font-size: 18px;
@@ -119,7 +118,7 @@
 
     <div class="game-wrapper">
         <div id="game-container">
-            <button id="start-btn" class="play-btn" onclick="loadGame()">JOGAR</button>
+            <button id="start-btn" class="play-btn" onclick="startGame()">JOGAR</button>
             <div id="game"></div>
         </div>
     </div>
@@ -127,23 +126,42 @@
     <script type="text/javascript">
         const romName = 'Castlevania - Aria of Sorrow (USA).gba';
 
-        function loadGame() {
-            // Esconde o botão após o clique
-            document.getElementById('start-btn').style.display = 'none';
+        function startGame() {
+            const btn = document.getElementById('start-btn');
+            btn.innerText = 'CARREGANDO...';
+            btn.style.pointerEvents = 'none';
 
-            // Configuração e inicialização do emulador
-            EJS_player = '#game';
-            EJS_core = 'gba';
-            EJS_gameName = 'Castlevania: Aria of Sorrow';
-            EJS_color = '#ff3333';
-            EJS_startOnLoaded = true;
-            EJS_pathtodata = 'https://unpkg.com/emulatorjs@4.0.0/data/';
-            EJS_gameUrl = romName;
-            EJS_language = 'en-US';
+            // Teste de conexão com o arquivo da ROM
+            fetch(romName, { method: 'HEAD' })
+                .then(res => {
+                    if (!res.ok) {
+                        alert(`ERRO: O arquivo "${romName}" não foi encontrado no servidor! Verifique se o nome no GitHub está idêntico.`);
+                        btn.innerText = 'JOGAR';
+                        btn.style.pointerEvents = 'auto';
+                        return;
+                    }
+                    
+                    // Esconde botão e carrega o emulador
+                    btn.style.display = 'none';
 
-            const script = document.createElement('script');
-            script.src = 'https://unpkg.com/emulatorjs@4.0.0/data/loader.js';
-            document.body.appendChild(script);
+                    window.EJS_player = '#game';
+                    window.EJS_core = 'gba';
+                    window.EJS_gameName = 'Castlevania: Aria of Sorrow';
+                    window.EJS_color = '#ff3333';
+                    window.EJS_startOnLoaded = true;
+                    window.EJS_pathtodata = 'https://unpkg.com/emulatorjs@4.0.0/data/';
+                    window.EJS_gameUrl = romName;
+                    window.EJS_language = 'en-US';
+
+                    const script = document.createElement('script');
+                    script.src = 'https://unpkg.com/emulatorjs@4.0.0/data/loader.js';
+                    document.body.appendChild(script);
+                })
+                .catch(err => {
+                    alert('ERRO DE REDE: Não foi possível acessar o arquivo do jogo. Se estiver testando offline sem servidor local, o navegador bloqueia a ROM.');
+                    btn.innerText = 'JOGAR';
+                    btn.style.pointerEvents = 'auto';
+                });
         }
     </script>
 

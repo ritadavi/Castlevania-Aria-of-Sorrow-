@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castlevania GBA</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         body {
             background-color: #111111;
             color: #ffffff;
@@ -27,7 +24,6 @@
             min-height: 100vh;
             padding: 20px;
         }
-
         h1 {
             font-size: 18px;
             color: #ff3333;
@@ -35,31 +31,26 @@
             text-align: center;
             line-height: 1.4;
         }
-
         .game-wrapper {
             width: 800px;
             max-width: 100%;
             background-color: #000000;
             padding: 12px;
             border: 4px solid #333333;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
         }
-
         #game-container {
             width: 100%;
-            height: 500px;
+            /* Mantém a proporção clássica de aspecto de tela cheia do emulador */
+            aspect-ratio: 4 / 3; 
             background-color: #000;
             position: relative;
         }
-
         #game {
             width: 100%;
             height: 100%;
         }
-
         @media (max-width: 840px) {
-            #game-container {
-                height: 400px;
-            }
             h1 {
                 font-size: 13px;
             }
@@ -76,6 +67,7 @@
         </div>
     </div>
 
+    <!-- Configurações do EmulatorJS devem vir ANTES do script carregador -->
     <script type="text/javascript">
         EJS_player = '#game';
         EJS_core = 'gba';
@@ -83,12 +75,12 @@
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
         
+        // Caminho dos arquivos de dados e do jogo
         EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
-        EJS_gameUrl = 'castlevania.gba';
-
-        EJS_cacheUrl = true;
+        EJS_gameUrl = 'castlevania.gba'; // Certifique-se de que este arquivo está na mesma pasta do HTML
     </script>
-
+    
+    <!-- Script de inicialização oficial -->
     <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js"></script>
 
 </body>

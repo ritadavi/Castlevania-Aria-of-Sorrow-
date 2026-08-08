@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castlevania GBA</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    
     <style>
         * {
             box-sizing: border-box;
@@ -43,7 +41,7 @@
         }
         #game-container {
             width: 100%;
-            aspect-ratio: 4 / 3; 
+            aspect-ratio: 4 / 3;
             background-color: #000;
             position: relative;
         }
@@ -56,6 +54,7 @@
             font-size: 10px;
             color: #ff9999;
             text-align: center;
+            line-height: 1.6;
         }
         @media (max-width: 840px) {
             h1 {
@@ -73,43 +72,49 @@
             <div id="game"></div>
         </div>
     </div>
-    
-    <div id="status-message"></div>
+
+    <div id="status-message">Carregando emulador...</div>
 
     <script type="text/javascript">
+        // Configurações obrigatórias do EmulatorJS
         EJS_player = '#game';
         EJS_core = 'gba';
         EJS_gameName = 'Castlevania';
         EJS_color = '#800000';
-        EJS_startOnLoaded = false;
+        EJS_startOnLoaded = true;
         
-        // CDN v4 via unpkg (resolve problemas de GamepadHandler e erros de rede)
-        EJS_pathtodata = 'https://unpkg.com/emulatorjs@4.0.0/data/';
+        // Caminho oficial da CDN estável do EmulatorJS
+        EJS_pathtodata = 'https://emulatorjs.org';
         
-        // Caminho relativo para a ROM
+        // Caminho da sua ROM (deve estar na mesma pasta do HTML)
         EJS_gameUrl = 'castlevania.gba'; 
-        
-        // Define idioma padrão sem tentar buscar arquivos de tradução ausentes
-        EJS_language = 'en-US';
     </script>
-    
-    <!-- Script de carregamento v4 -->
-    <script src="https://unpkg.com/emulatorjs@4.0.0/data/loader.js"></script>
+
+    <!-- Script de carregamento oficial atualizado -->
+    <script src="https://emulatorjs.orgloader.js"></script>
 
     <script>
-        // Verificação de conexão com o arquivo da ROM
-        fetch('castlevania.gba', { method: 'HEAD' })
-            .then(response => {
-                if (!response.ok) {
-                    document.getElementById('status-message').innerText = 
-                        "ERRO: O arquivo 'castlevania.gba' não foi encontrado no servidor (404).";
-                }
-            })
-            .catch(error => {
-                document.getElementById('status-message').innerText = 
-                    "ERRO DE REDE/CORS: Se estiver rodando offline sem um servidor local, o navegador bloqueia a ROM.";
-            });
-    </script>
+        // Sistema de diagnóstico para ajudar você a testar
+        const statusDiv = document.getElementById('status-message');
 
+        if (window.location.protocol === 'file:') {
+            statusDiv.innerHTML = "ERRO DE SISTEMA: Você abriu o arquivo clicando duas vezes.<br>" +
+                                  "Navegadores bloqueiam jogos (CORS) localmente.<br>" +
+                                  "<strong>Você PRECISA usar um servidor local (Ex: Live Server do VS Code).</strong>";
+        } else {
+            fetch('castlevania.gba', { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        statusDiv.innerText = "Emulador pronto! Clique no botão de Play se necessário.";
+                    } else {
+                        statusDiv.innerHTML = "ERRO: O arquivo 'castlevania.gba' não foi encontrado.<br>" +
+                                              "Certifique-se de que a ROM está na mesma pasta deste HTML com o nome exato.";
+                    }
+                })
+                .catch(error => {
+                    statusDiv.innerText = "Erro ao tentar ler o arquivo da ROM no servidor.";
+                });
+        }
+    </script>
 </body>
 </html>

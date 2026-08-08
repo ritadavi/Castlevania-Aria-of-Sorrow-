@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castlevania GBA</title>
     
-    <!-- Links das fontes corrigidos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -76,26 +75,15 @@
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
         
-        // Caminho oficial correto para os arquivos do emulador
-        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+        // Uso da CDN jsDelivr para evitar bloqueios de rede
+        EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
         
-        // Nome exato do arquivo ROM (deve bater com o arquivo na mesma pasta)
+        // Nome exato da ROM
         EJS_gameUrl = 'castlevania.gba'; 
     </script>
     
-    <!-- Script Loader corrigido com CDN estável -->
-    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
-
-    <script>
-        // Verificação do arquivo ROM no console
-        fetch(EJS_gameUrl, { method: 'HEAD' })
-            .then(res => {
-                if (!res.ok) console.warn("Aviso: O arquivo 'castlevania.gba' não foi encontrado na mesma pasta do arquivo HTML.");
-            })
-            .catch(() => {
-                console.error("Erro de CORS: Para rodar localmente sem servidor HTTP, o navegador bloqueará a leitura do arquivo.");
-            });
-    </script>
+    <!-- Loader via jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js"></script>
 
 </body>
 </html>

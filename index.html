@@ -88,16 +88,17 @@
         </div>
     </div>
 
-    <!-- Configurações do EmulatorJS -->
     <script type="text/javascript">
         EJS_player = '#game';
         EJS_core = 'gba';
         EJS_gameName = 'Castlevania';
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
-        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
         
-        // Nome exato do arquivo no GitHub (respeitando maiúsculas e minúsculas)
+        // Usando CDN alternativa para evitar bloqueios de carregamento dos dados do emulador
+        EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
+        
+        // Caminho relativo simples apontando para o arquivo no GitHub
         EJS_gameUrl = 'Castlevania.gba';
 
         EJS_cacheUrl = true;
@@ -106,7 +107,8 @@
         };
     </script>
 
-    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+    <!-- Loader do EmulatorJS via CDN do jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js"></script>
 
 </body>
 </html>

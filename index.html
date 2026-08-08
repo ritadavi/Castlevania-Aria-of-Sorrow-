@@ -94,18 +94,17 @@
         EJS_core = 'gba';
         EJS_gameName = 'Castlevania';
         EJS_color = '#ff3333';
-        EJS_startOnLoaded = true; // Inicia automaticamente ao terminar de carregar o core
+        EJS_startOnLoaded = true;
 
-        // Caminho da CDN e arquivo
-        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-        EJS_gameUrl = 'castlevania.gba';
+        // CDN v4.0.0 via unpkg (Evita crash no carregamento do WebAssembly mgba)
+        EJS_pathtodata = 'https://unpkg.com/emulatorjs@4.0.0/data/';
         
-        // Evita conflito com extensões de arquivo e linguagens não mapeadas
+        // Passa o caminho da ROM
+        EJS_gameUrl = 'castlevania.gba';
         EJS_language = 'en-US';
-        EJS_biosUrl = ''; // O núcleo de GBA integrado dispensa BIOS externa
     </script>
     
-    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+    <script src="https://unpkg.com/emulatorjs@4.0.0/data/loader.js"></script>
 
 </body>
 </html>

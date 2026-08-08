@@ -80,28 +80,19 @@
     </div>
 
     <script type="text/javascript">
-        // Elemento onde o emulador será injetado
         EJS_player = '#game'; 
-        
-        // Núcleo do sistema (GBA)
         EJS_core = 'gba'; 
-        
-        // Nome do jogo exibido na interface
         EJS_gameName = 'Castlevania'; 
-        
-        // Cor temática dos botões do emulador
         EJS_color = '#800000'; 
         
-        // CORREÇÃO: Força o emulador a carregar os arquivos assim que a página abrir
-        EJS_startOnLoaded = true; 
+        // Mantém como false para carregar o botão de Play primeiro (evita travamento do navegador ao baixar assets)
+        EJS_startOnLoaded = false; 
         
-        // Caminho dos arquivos do emulador via CDN oficial
         EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
         
-        // URL da ROM (certifique-se de que o arquivo está na raiz do seu site)
-        EJS_gameUrl = 'Castlevania.gba'; 
+        // Uso de caminho relativo explícito
+        EJS_gameUrl = './Castlevania.gba'; 
         
-        // Ativa o cache no navegador para carregar mais rápido nas próximas vezes
         EJS_cacheUrl = true;
     </script>
     <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>

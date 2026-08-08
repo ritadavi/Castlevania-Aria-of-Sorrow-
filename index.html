@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GBA Player Online</title>
+    <title>Castlevania GBA</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +15,9 @@
             margin: 0;
             padding: 0;
         }
+
         body {
-            background: #111;
+            background-color: #111111;
             color: #ffffff;
             font-family: 'Press Start 2P', monospace;
             display: flex;
@@ -26,39 +27,48 @@
             min-height: 100vh;
             padding: 20px;
         }
+
         h1 {
             font-size: 18px;
             color: #ff3333;
             margin-bottom: 25px;
             text-align: center;
+            line-height: 1.4;
         }
+
         .game-wrapper {
             width: 800px;
             max-width: 100%;
             background-color: #000000;
             padding: 12px;
-            border: 4px solid #333;
+            border: 4px solid #333333;
         }
+
         #game-container {
             width: 100%;
             height: 500px;
             background-color: #000;
             position: relative;
         }
+
         #game {
             width: 100%;
             height: 100%;
         }
+
         @media (max-width: 840px) {
             #game-container {
                 height: 400px;
+            }
+            h1 {
+                font-size: 13px;
             }
         }
     </style>
 </head>
 <body>
 
-    <h1>CASTLEVANIA GBA</h1>
+    <h1>CASTLEVANIA ONLINE</h1>
 
     <div class="game-wrapper">
         <div id="game-container">
@@ -73,16 +83,15 @@
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
         
-        // Caminho dos dados do EmulatorJS corrigido
+        // CDN oficial dos arquivos do emulador
         EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
         
-        // Nome do arquivo da ROM
-        EJS_gameUrl = 'Castlevania.gba'; 
-        
+        // Nome exato da ROM (mantenha tudo em minúsculas para evitar erros)
+        EJS_gameUrl = 'castlevania.gba';
+
         EJS_cacheUrl = true;
     </script>
-    
-    <!-- URL do Loader corrigida -->
+
     <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 
 </body>

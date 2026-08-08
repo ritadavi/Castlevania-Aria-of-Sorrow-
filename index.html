@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castlevania: Aria of Sorrow Online</title>
 
-    <!-- Importação correta da fonte Pixel Art -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -18,7 +17,6 @@
         }
 
         body {
-            /* Fundo degradê temático sombrio (Estilo Castelo do Drácula) */
             background: linear-gradient(135deg, #0f0202 25%, #2a0808 50%, #0f0202 75%);
             background-size: 400% 400%;
             animation: draculaFog 15s ease infinite;
@@ -35,7 +33,6 @@
         h1 {
             font-size: 20px;
             color: #ff3333;
-            /* Sombra de texto pesada estilo gótico/retro */
             text-shadow: 3px 3px 0px #4a0000, 6px 6px 0px #000;
             margin-bottom: 25px;
             text-align: center;
@@ -43,7 +40,6 @@
             line-height: 1.4;
         }
 
-        /* Moldura gótica vermelha e preta */
         .game-wrapper {
             width: 800px;
             max-width: 100%;
@@ -61,6 +57,9 @@
             background-color: #000;
             position: relative;
             border: 4px solid #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #game {
@@ -68,29 +67,48 @@
             height: 100%;
         }
 
-        #status-log {
-            margin-top: 15px;
-            font-size: 10px;
-            color: #ffaa00;
-            text-align: center;
-            max-width: 800px;
-            line-height: 1.6;
+        /* Botão estilizado no tema do jogo */
+        .play-btn {
+            position: absolute;
+            z-index: 10;
+            padding: 20px 40px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #800000;
+            border: 4px solid #ff3333;
+            box-shadow: 0 6px 0 #4a0000, 0 10px 20px rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+            transition: all 0.1s ease;
         }
 
-        /* Animação suave de névoa ao fundo */
+        .play-btn:hover {
+            background-color: #a00000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #4a0000, 0 12px 22px rgba(255, 0, 0, 0.4);
+        }
+
+        .play-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #4a0000;
+        }
+
         @keyframes draculaFog {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Responsividade para telas menores */
         @media (max-width: 840px) {
             #game-container {
                 height: 400px;
             }
             h1 {
                 font-size: 14px;
+            }
+            .play-btn {
+                font-size: 14px;
+                padding: 15px 30px;
             }
         }
     </style>
@@ -101,48 +119,24 @@
 
     <div class="game-wrapper">
         <div id="game-container">
+            <button id="start-btn" class="play-btn" onclick="loadGame()">JOGAR</button>
             <div id="game"></div>
         </div>
     </div>
 
-    <div id="status-log">Verificando arquivo no servidor...</div>
-
     <script type="text/javascript">
-        // Nome exato da ROM
         const romName = 'Castlevania - Aria of Sorrow (USA).gba';
-        const statusElement = document.getElementById('status-log');
 
-        // Teste antes de iniciar para evitar tela preta silenciosa
-        fetch(romName)
-            .then(res => {
-                if (!res.ok) throw new Error("Arquivo não encontrado no servidor (404).");
-                return res.blob();
-            })
-            .then(blob => {
-                const sizeMB = (blob.size / (1024 * 1024)).toFixed(2);
-                
-                if (blob.size < 1000000) {
-                    statusElement.style.color = '#ff3333';
-                    statusElement.innerText = `ERRO: O arquivo no servidor tem apenas ${sizeMB} MB. Faça o upload da ROM completa.`;
-                } else {
-                    statusElement.style.color = '#66ff66';
-                    statusElement.innerText = `ROM carregada (${sizeMB} MB). Iniciando emulador...`;
-                    startEmulator();
-                }
-            })
-            .catch(err => {
-                statusElement.style.color = '#ff3333';
-                statusElement.innerText = `ERRO: O arquivo "${romName}" não foi encontrado na raiz do site. Verifique maiúsculas e espaços no GitHub.`;
-            });
+        function loadGame() {
+            // Esconde o botão após o clique
+            document.getElementById('start-btn').style.display = 'none';
 
-        function startEmulator() {
+            // Configuração e inicialização do emulador
             EJS_player = '#game';
             EJS_core = 'gba';
             EJS_gameName = 'Castlevania: Aria of Sorrow';
             EJS_color = '#ff3333';
             EJS_startOnLoaded = true;
-            
-            // CDN funcional v4.0 sem erros de Gamepad/Network
             EJS_pathtodata = 'https://unpkg.com/emulatorjs@4.0.0/data/';
             EJS_gameUrl = romName;
             EJS_language = 'en-US';

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castlevania GBA Online</title>
-    <!-- Importação correta da fonte Pixel Art -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -17,7 +17,6 @@
         }
 
         body {
-            /* Fundo degradê temático sombrio (Estilo Castelo do Drácula) */
             background: linear-gradient(135deg, #0f0202 25%, #2a0808 50%, #0f0202 75%);
             background-size: 400% 400%;
             animation: draculaFog 15s ease infinite;
@@ -34,14 +33,12 @@
         h1 {
             font-size: 24px;
             color: #ff3333;
-            /* Sombra de texto pesada estilo gótico/retro */
             text-shadow: 3px 3px 0px #4a0000, 6px 6px 0px #000;
             margin-bottom: 25px;
             text-align: center;
             letter-spacing: 2px;
         }
 
-        /* Moldura gótica vermelha e preta pesada */
         .game-wrapper {
             width: 800px;
             max-width: 100%;
@@ -66,14 +63,12 @@
             height: 100%;
         }
 
-        /* Animação suave de névoa ao fundo */
         @keyframes draculaFog {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Responsividade para telas menores */
         @media (max-width: 840px) {
             #game-container {
                 height: 400px;
@@ -96,17 +91,21 @@
 
     <script type="text/javascript">
         EJS_player = '#game';
-        EJS_core = 'gba'; // Alterado para carregar Game Boy Advance
+        EJS_core = 'gba';
         EJS_gameName = 'Castlevania';
-        EJS_color = '#ff3333'; // Cor vermelha combinando com a moldura
-        EJS_startOnLoaded = false;
+        EJS_color = '#ff3333';
+        EJS_startOnLoaded = true; // Inicia automaticamente ao terminar de carregar o core
+
+        // Caminho da CDN e arquivo
         EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-        EJS_gameUrl = 'castlevania.gba'; // Caminho da sua ROM de GBA
-        EJS_cacheUrl = true;
-        EJS_defaultSettings = {
-            'save-state-location': 'browser'
-        };
+        EJS_gameUrl = 'castlevania.gba';
+        
+        // Evita conflito com extensões de arquivo e linguagens não mapeadas
+        EJS_language = 'en-US';
+        EJS_biosUrl = ''; // O núcleo de GBA integrado dispensa BIOS externa
     </script>
+    
     <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+
 </body>
 </html>

@@ -83,16 +83,17 @@
         EJS_color = '#800000';
         EJS_startOnLoaded = false;
         
-        // CDN oficial dos arquivos do emulador
-        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+        // Usando a CDN do jsDelivr para evitar 'Erro na rede'
+        EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/';
         
-        // Nome exato da ROM (mantenha tudo em minúsculas para evitar erros)
+        // Nome exato da ROM no GitHub
         EJS_gameUrl = 'castlevania.gba';
 
         EJS_cacheUrl = true;
     </script>
 
-    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+    <!-- Carregador via jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/gh/emulatorjs/emulatorjs@latest/data/loader.js"></script>
 
 </body>
 </html>
